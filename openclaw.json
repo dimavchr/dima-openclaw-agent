@@ -1,0 +1,10 @@
+{
+  "gateway": {
+    "port": 3000,
+    "controlUi": {
+      "allowedOrigins": [
+        "https://openclaw-dima-assistant.fly.dev"
+      ]
+    }
+  }
+}
