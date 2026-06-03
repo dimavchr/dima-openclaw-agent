@@ -33,6 +33,13 @@
           "alias": "Gemini 3 Flash Preview"
         }
       },
+      "compaction": {
+        "notifyUser": true,
+        "memoryFlush": {
+          "enabled": true,
+          "softThresholdTokens": 8000
+        }
+      },
       "memorySearch": {
         "provider": "gemini",
         "model": "gemini-embedding-001",
