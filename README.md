@@ -9,7 +9,6 @@ Deployment configuration for **DAISHA** — a personal AI assistant running [Ope
 | `hetzner-setup-guide.md` | Step-by-step guide to provision a new server from scratch |
 | `openclaw.json.template` | OpenClaw config with secrets redacted — the source of truth for agent structure |
 | `restore-config.sh` | Script to fill secrets into the template and push to the server |
-| `fly.toml` | Legacy Fly.io config (superseded by Hetzner) |
 
 **Not committed (gitignored):**
 - `hetzner-credentials.md` — all secrets and credentials, keep this safe locally
@@ -100,7 +99,7 @@ ssh root@49.13.76.210 'cd /opt/openclaw && docker compose pull && docker compose
 # View live logs
 ssh root@49.13.76.210 'cd /opt/openclaw && docker compose logs -f'
 
-# Fix stuck Telegram spool (bot stops responding after a hard restart)
+# Fix stuck Telegram spool manually (auto-cleared every 10 min by cron, but instant fix if needed)
 ssh root@49.13.76.210 'rm -f /root/.openclaw/telegram/ingress-spool-default/*.processing'
 ```
 
@@ -110,12 +109,12 @@ ssh root@49.13.76.210 'rm -f /root/.openclaw/telegram/ingress-spool-default/*.pr
 
 Current fallback chain (edit `openclaw.json.template` to change defaults):
 
-1. `openrouter/meta-llama/llama-3.3-70b-instruct:free` — primary, no cost
-2. `openrouter/google/gemma-4-31b-it:free` — fallback, no cost
-3. `deepseek/deepseek-chat` — fallback, paid (api.deepseek.com)
-4. `google/gemini-3.1-flash-lite` — last resort, daily rate limit applies
+1. `deepseek/deepseek-v4-flash` — primary, paid (api.deepseek.com), fast
+2. `google/gemini-3.1-flash-lite` — fallback, paid (Google AI)
+3. `google/gemini-2.5-flash` — fallback, paid (Google AI)
+4. `google/gemini-2.0-flash` — last resort (note: may be discontinued; verify with Google)
 
-Free OpenRouter models require no credits but are shared-tier — expect occasional slowness. Add an Anthropic API key for the most reliable experience.
+OpenRouter free models (`llama-3.3-70b:free`, `gemma-4-31b:free`) are still registered as selectable options but are NOT in the default fallback chain — they hit per-day quotas and caused the bot to go silent. Add an Anthropic API key for the most reliable experience.
 
 ---
 

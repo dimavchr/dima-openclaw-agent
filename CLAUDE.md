@@ -4,31 +4,46 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-This is a **deployment configuration** repository for `openclaw-dima-assistant` on Fly.io. It does not contain application source code — it deploys a pre-built Docker image (`ghcr.io/openclaw/openclaw:latest`).
+This is a **deployment configuration** repository for **DAISHA** — a personal AI assistant running [OpenClaw](https://openclaw.ai) on a Hetzner VPS. It does not contain application source code — it deploys a pre-built Docker image (`ghcr.io/openclaw/openclaw:latest`).
 
 ## Key files
 
-- `fly.toml` — Fly.io deployment config: app name, region (`fra`), VM size (shared-cpu-2x, 2GB RAM), persistent volume mount at `/data`, and the startup command.
-- `openclaw.json` — OpenClaw application config: gateway port and allowed CORS origins.
+- `openclaw.json.template` — OpenClaw config with secrets redacted; source of truth for agent structure.
+- `restore-config.sh` — fills secrets into the template and pushes config to the server.
+- `hetzner-setup-guide.md` — step-by-step guide to provision a new server from scratch.
 
-## Deployment
+## Server
 
-```powershell
-# Deploy to Fly.io
-fly deploy
+| Field | Value |
+|---|---|
+| Provider | Hetzner Cloud |
+| IP | `49.13.76.210` |
+| Config dir | `/root/.openclaw/` |
+| Compose dir | `/opt/openclaw/` |
 
-# Check app status
-fly status
+## Common operations
 
-# View logs
-fly logs
+```bash
+# SSH into the server
+ssh root@49.13.76.210
 
-# SSH into the running machine
-fly ssh console
+# SSH tunnel to access the UI locally
+ssh -N -L 18789:127.0.0.1:18789 root@49.13.76.210
+# then open http://127.0.0.1:18789/
+
+# View live logs
+ssh root@49.13.76.210 'cd /opt/openclaw && docker compose logs -f'
+
+# Update to latest OpenClaw image
+ssh root@49.13.76.210 'cd /opt/openclaw && docker compose pull && docker compose up -d'
+
+# Restart the container
+ssh root@49.13.76.210 'cd /opt/openclaw && docker compose restart'
+
+# Fix stuck Telegram spool (bot stops responding after a hard restart)
+ssh root@49.13.76.210 'rm -f /root/.openclaw/telegram/ingress-spool-default/*.processing'
 ```
-
-The app runs as a gateway process: `node dist/index.js gateway --allow-unconfigured --port 3000 --bind lan`. Auto-stop is disabled (`auto_stop_machines = "off"`) so the agent stays running 24/7.
 
 ## Persistent storage
 
-A Fly volume named `openclaw_data` is mounted at `/data`. The app uses `OPENCLAW_STATE_DIR=/data` for state persistence. Be cautious with operations that might affect this volume.
+All state lives in `/root/.openclaw/` on the server. Be cautious with operations that might affect this directory — it contains agent memory, credentials, and conversation history.

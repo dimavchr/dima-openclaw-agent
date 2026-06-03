@@ -3,32 +3,41 @@
     "defaults": {
       "workspace": "/home/node/.openclaw/workspace",
       "model": {
-        "primary": "openrouter/meta-llama/llama-3.3-70b-instruct:free",
+        "primary": "deepseek/deepseek-v4-flash",
         "fallbacks": [
-          "openrouter/google/gemma-4-31b-it:free",
-          "deepseek/deepseek-chat",
-          "google/gemini-3.1-flash-lite"
+          "google/gemini-3.1-flash-lite",
+          "google/gemini-2.5-flash",
+          "google/gemini-2.0-flash"
         ]
       },
       "models": {
-        "google/gemini-3.1-pro-preview": {},
-        "openrouter/deepseek/deepseek-chat": {
-          "alias": "DeepSeek Chat"
+        "deepseek/deepseek-v4-flash": {
+          "alias": "DeepSeek V4 Flash"
+        },
+        "deepseek/deepseek-v4-pro": {
+          "alias": "DeepSeek V4 Pro"
         },
         "google/gemini-3.1-flash-lite": {
           "alias": "Gemini 3.1 Flash Lite"
         },
+        "google/gemini-2.5-flash": {
+          "alias": "Gemini 2.5 Flash"
+        },
+        "google/gemini-2.0-flash": {
+          "alias": "Gemini 2.0 Flash"
+        },
+        "google/gemini-3.1-pro-preview": {
+          "alias": "Gemini 3.1 Pro Preview"
+        },
         "google/gemini-3-flash-preview": {
           "alias": "Gemini 3 Flash Preview"
-        },
-        "deepseek/deepseek-chat": {
-          "alias": "DeepSeek Chat (native)"
-        },
-        "openrouter/meta-llama/llama-3.3-70b-instruct:free": {
-          "alias": "Llama 3.3 70B (free)"
-        },
-        "openrouter/google/gemma-4-31b-it:free": {
-          "alias": "Gemma 4 31B (free)"
+        }
+      },
+      "memorySearch": {
+        "provider": "gemini",
+        "model": "gemini-embedding-001",
+        "remote": {
+          "apiKey": "__GOOGLE_API_KEY__"
         }
       }
     }
@@ -82,6 +91,14 @@
             "enabled": true
           }
         }
+      },
+      "searxng": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "baseUrl": "http://searxng:8080"
+          }
+        }
       }
     }
   },
@@ -102,7 +119,11 @@
         }
       },
       "botToken": "__TELEGRAM_BOT_TOKEN__",
-      "groupPolicy": "open"
+      "groupPolicy": "open",
+      "reactionNotifications": "own",
+      "actions": {
+        "reactions": true
+      }
     }
   },
   "commands": {
@@ -127,16 +148,8 @@
             "name": "DeepSeek Chat"
           },
           {
-            "id": "deepseek/deepseek-coder",
-            "name": "DeepSeek Coder"
-          },
-          {
             "id": "meta-llama/llama-3.3-70b-instruct:free",
             "name": "Llama 3.3 70B (free)"
-          },
-          {
-            "id": "google/gemma-4-31b-it:free",
-            "name": "Gemma 4 31B (free)"
           },
           {
             "id": "qwen/qwen3-coder:free",
@@ -150,12 +163,20 @@
         "api": "openai-completions",
         "models": [
           {
+            "id": "deepseek-v4-flash",
+            "name": "DeepSeek V4 Flash"
+          },
+          {
+            "id": "deepseek-v4-pro",
+            "name": "DeepSeek V4 Pro"
+          },
+          {
             "id": "deepseek-chat",
-            "name": "DeepSeek Chat"
+            "name": "DeepSeek Chat (legacy, deprecated Jul 24)"
           },
           {
             "id": "deepseek-reasoner",
-            "name": "DeepSeek Reasoner"
+            "name": "DeepSeek Reasoner (legacy, deprecated Jul 24)"
           }
         ]
       },
@@ -165,12 +186,20 @@
         "api": "openai-completions",
         "models": [
           {
-            "id": "gemini-3.1-pro-preview",
-            "name": "Gemini 3.1 Pro Preview"
-          },
-          {
             "id": "gemini-3.1-flash-lite",
             "name": "Gemini 3.1 Flash Lite"
+          },
+          {
+            "id": "gemini-2.5-flash",
+            "name": "Gemini 2.5 Flash"
+          },
+          {
+            "id": "gemini-2.0-flash",
+            "name": "Gemini 2.0 Flash"
+          },
+          {
+            "id": "gemini-3.1-pro-preview",
+            "name": "Gemini 3.1 Pro Preview"
           },
           {
             "id": "gemini-3-flash-preview",
