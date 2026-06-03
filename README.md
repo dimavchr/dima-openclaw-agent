@@ -105,6 +105,31 @@ ssh root@49.13.76.210 'rm -f /root/.openclaw/telegram/ingress-spool-default/*.pr
 
 ---
 
+## Adding API keys and secrets securely
+
+**Never paste secrets into the Telegram chat** — they end up in the conversation context and get sent to external AI providers.
+
+Instead, SSH into the server and use this pattern to inject a key interactively (typed like a password, never echoed, never in shell history):
+
+```bash
+ssh root@49.13.76.210
+# then on the server:
+python3 -c "
+import json, getpass
+key = getpass.getpass('API key: ')
+with open('/root/.openclaw/openclaw.json') as f:
+    d = json.load(f)
+d['mcp']['servers']['YOUR_SERVER_NAME']['env']['YOUR_KEY_NAME'] = key
+with open('/root/.openclaw/openclaw.json', 'w') as f:
+    json.dump(d, f, indent=2)
+print('done')
+"
+```
+
+Replace `YOUR_SERVER_NAME` and `YOUR_KEY_NAME` with the relevant MCP server and env variable name. The same pattern works for any secret in the config (gateway token, channel bot tokens, etc.) — just adjust the path into `d`.
+
+---
+
 ## Model configuration
 
 Current fallback chain (edit `openclaw.json.template` to change defaults):
