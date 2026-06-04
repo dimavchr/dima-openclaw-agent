@@ -96,8 +96,7 @@
     "dmScope": "per-channel-peer"
   },
   "tools": {
-    "profile": "coding",
-    "allow": ["tts"]
+    "profile": "coding"
   },
   "plugins": {
     "entries": {
