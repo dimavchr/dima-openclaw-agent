@@ -93,8 +93,8 @@ Sessions are excluded from the backup — they are large transcripts that don't 
 ssh -N -L 18789:127.0.0.1:18789 root@49.13.76.210
 # then open http://127.0.0.1:18789/
 
-# Update to latest OpenClaw image
-ssh root@49.13.76.210 'cd /opt/openclaw && docker compose pull && docker compose up -d'
+# Update to latest OpenClaw image (rebuilds custom image with Playwright deps)
+ssh root@49.13.76.210 'cd /opt/openclaw && docker compose build --pull && docker compose up -d'
 
 # View live logs
 ssh root@49.13.76.210 'cd /opt/openclaw && docker compose logs -f'
