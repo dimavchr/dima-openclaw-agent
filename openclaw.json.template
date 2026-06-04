@@ -26,18 +26,15 @@
         "google/gemini-2.0-flash": {
           "alias": "Gemini 2.0 Flash"
         },
-        "google/gemini-3.1-flash-image-preview": {
-          "alias": "Gemini 3.1 Flash Image Preview"
-        },
-        "google/gemini-3-pro-image-preview": {
-          "alias": "Gemini 3 Pro Image Preview"
-        },
         "google/gemini-3.1-pro-preview": {
           "alias": "Gemini 3.1 Pro Preview"
         },
         "google/gemini-3-flash-preview": {
           "alias": "Gemini 3 Flash Preview"
         }
+      },
+      "imageModel": {
+        "primary": "google/gemini-2.5-flash"
       },
       "compaction": {
         "notifyUser": true,
