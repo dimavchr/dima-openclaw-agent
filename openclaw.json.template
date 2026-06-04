@@ -81,11 +81,17 @@
       ]
     }
   },
+  "messages": {
+    "tts": {
+      "enabled": true
+    }
+  },
   "session": {
     "dmScope": "per-channel-peer"
   },
   "tools": {
-    "profile": "coding"
+    "profile": "coding",
+    "allow": ["tts"]
   },
   "plugins": {
     "entries": {
