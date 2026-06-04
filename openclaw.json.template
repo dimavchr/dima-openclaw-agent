@@ -84,6 +84,7 @@
   "messages": {
     "tts": {
       "enabled": true,
+      "auto": "tagged",
       "providers": {
         "google": {
           "model": "gemini-2.5-flash-preview-tts",
