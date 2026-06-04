@@ -86,6 +86,7 @@
       "enabled": true,
       "providers": {
         "google": {
+          "model": "gemini-2.5-flash-preview-tts",
           "voiceName": "Vindemiatrix",
           "personaPrompt": "Speak with the confident, expressive energy of a sassy Black woman. Be animated and rhythmic in your delivery — warm but direct, with natural attitude. Put emphasis on key words, let your personality come through your inflection, and lean into the drama when the moment calls for it. Use natural vocal flair: a bit of side-eye in the tone when something is obvious, warmth when encouraging, and unapologetic confidence throughout."
         }
