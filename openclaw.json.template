@@ -43,7 +43,7 @@
         "notifyUser": true,
         "memoryFlush": {
           "enabled": true,
-          "softThresholdTokens": 8000
+          "softThresholdTokens": 30000
         }
       },
       "memorySearch": {
