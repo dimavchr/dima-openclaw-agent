@@ -26,6 +26,12 @@
         "google/gemini-2.0-flash": {
           "alias": "Gemini 2.0 Flash"
         },
+        "google/gemini-3.1-flash-image-preview": {
+          "alias": "Gemini 3.1 Flash Image Preview"
+        },
+        "google/gemini-3-pro-image-preview": {
+          "alias": "Gemini 3 Pro Image Preview"
+        },
         "google/gemini-3.1-pro-preview": {
           "alias": "Gemini 3.1 Pro Preview"
         },
@@ -220,6 +226,14 @@
           {
             "id": "gemini-2.0-flash",
             "name": "Gemini 2.0 Flash"
+          },
+          {
+            "id": "gemini-3.1-flash-image-preview",
+            "name": "Gemini 3.1 Flash Image Preview"
+          },
+          {
+            "id": "gemini-3-pro-image-preview",
+            "name": "Gemini 3 Pro Image Preview"
           },
           {
             "id": "gemini-3.1-pro-preview",
